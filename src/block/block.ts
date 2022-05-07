@@ -1,3 +1,5 @@
+import SHA256 from 'crypto-js/sha256'
+
 export interface IBlock {
   timestamp: number | string
   lastHash: string
@@ -17,15 +19,19 @@ export class Block {
   }
 
   static genesis() {
-    return new this('Genesis time', '-----', 'wakeupdandsmile420', [])
+    return new this('Genesis time', '-----', '420waKeUpAndsMile', [])
   }
 
   static mineBlock(lastBlock: Block, data: unknown) {
     const timestamp = Date.now()
     const lastHash = lastBlock.hash
-    const hash = 'todo-hash'
+    const hash = Block.hash(timestamp, lastHash, data)
 
     return new this(timestamp, lastHash, hash, data)
+  }
+
+  static hash(timestamp: number, lashHash: string, data: unknown) {
+    return SHA256(`${timestamp}${lashHash}${data}`).toString()
   }
 
   constructor(
@@ -42,6 +48,14 @@ export class Block {
 
   get hash() {
     return this._hash
+  }
+
+  get data() {
+    return this._data
+  }
+
+  get lastHash() {
+    return this._lastHash
   }
 
   toString() {
