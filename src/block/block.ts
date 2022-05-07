@@ -1,7 +1,7 @@
 import SHA256 from 'crypto-js/sha256'
 
 export interface IGBlock {
-  timestamp: number | string
+  timestamp: number
   lastHash: string
   hash: string
   data: unknown
@@ -19,7 +19,7 @@ export class GBlock {
   }
 
   static genesis() {
-    return new this('Genesis time', '-----', '420waKeUpAndsMile', [])
+    return new this(420, '-----', '420waKeUpAndsMile', [])
   }
 
   static mineBlock(lastBlock: GBlock, data: unknown) {
@@ -34,6 +34,12 @@ export class GBlock {
     return SHA256(`${timestamp}${lashHash}${data}`).toString()
   }
 
+  static blockHash(block: GBlock) {
+    const { timestamp, lastHash, data } = block
+
+    return GBlock.hash(timestamp, lastHash, data)
+  }
+
   constructor(
     timestamp: IGBlock['timestamp'],
     lastHash: IGBlock['lastHash'],
@@ -44,6 +50,10 @@ export class GBlock {
     this._lastHash = lastHash
     this._hash = hash
     this._data = data
+  }
+
+  get timestamp() {
+    return this._timestamp
   }
 
   get hash() {
