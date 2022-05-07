@@ -1,10 +1,10 @@
 {
   "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "outDir": "dist",
     "resolveJsonModule": true,
   },
-  "include": ["src"],
+  "include": ["src", "blockchain", "app"],
   "exclude": ["node_modules"]
 }

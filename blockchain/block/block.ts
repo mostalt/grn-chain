@@ -19,7 +19,7 @@ export class GBlock {
   }
 
   static genesis() {
-    return new this(420, '-----', '420waKeUpAndsMile', [])
+    return new this(420, '-----', '420w@KeUpAnd$M1le', [])
   }
 
   static mineBlock(lastBlock: GBlock, data: unknown) {
@@ -69,7 +69,7 @@ export class GBlock {
   }
 
   toString() {
-    return `Block - 
+    return `GBlock - 
       Timestamp: ${this._timestamp}
       Last Hash: ${GBlock.sliceHash(this._lastHash)}
       Hash     : ${GBlock.sliceHash(this._hash)}

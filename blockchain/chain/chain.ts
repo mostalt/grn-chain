@@ -1,4 +1,4 @@
-import { GBlock } from '../block/'
+import { GBlock } from '../block'
 
 export class GChain {
   private _chain: GBlock[]
