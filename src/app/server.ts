@@ -6,8 +6,8 @@ import { P2PServer } from './p2p'
 
 const HTTP_PORT = process.env.HTTP_PORT || 4200
 
-const blockChain = new GChain()
 const app = express()
+const blockChain = new GChain()
 const p2p = new P2PServer(blockChain)
 
 app.use(bodyParser.json())
@@ -26,7 +26,7 @@ app.post('/mine', (req, res) => {
 })
 
 const server = app.listen(HTTP_PORT, () => {
-  console.log(`Listening op port ${HTTP_PORT}`)
+  console.log(`Listening on port ${HTTP_PORT}`)
 })
 
 p2p.listen()

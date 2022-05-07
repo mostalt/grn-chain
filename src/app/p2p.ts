@@ -1,9 +1,10 @@
-import { GBlock } from '../blockchain/block'
 import Websocket, { WebSocket } from 'ws'
+
+import { GBlock } from '../blockchain/block'
 import { GChain } from '../blockchain/chain'
 
 const P2P_PORT = Number(process.env.P2P_PORT) || 5001
-const peers: string[] = process.env.PEERS ? process.env.PEERS.split(',') : []
+const PEERS: string[] = process.env.PEERS ? process.env.PEERS.split(',') : []
 
 type TransferObject = {
   _timestamp: number
@@ -30,7 +31,7 @@ export class P2PServer {
   }
 
   private _connectToPeers() {
-    peers.forEach((peer) => {
+    PEERS.forEach((peer) => {
       const socket = new WebSocket(peer)
 
       socket.on('open', () => this._connectSocket(socket))
@@ -65,6 +66,6 @@ export class P2PServer {
     })
 
     this._connectToPeers()
-    console.log(`Listening for p2p connections on port: ${P2P_PORT}`)
+    console.log(`Listening for p2p connections on port ${P2P_PORT}`)
   }
 }

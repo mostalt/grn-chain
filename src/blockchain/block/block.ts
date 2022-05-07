@@ -10,8 +10,8 @@ export interface IGBlock {
 export class GBlock {
   private _timestamp: IGBlock['timestamp']
   private _lastHash: IGBlock['lastHash']
-  private _data: IGBlock['data']
   private _hash: IGBlock['hash']
+  private _data: IGBlock['data']
 
   static sliceHash(hash: string) {
     return hash.substring(0, 10)
