@@ -1,12 +1,12 @@
 {
-  "name": "lottie-generator",
+  "name": "grn-chain",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "serverjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
-    "start": "npx ts-node src/main.ts"
+    "server": "nodemon --watch src --exec \"ts-node --transpile-only src/server.ts\""
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "eslint": "^8.12.0",
+    "nodemon": "^2.0.16",
     "ts-node": "^10.7.0",
     "tslint": "^6.1.3",
     "typescript": "^4.6.3"
