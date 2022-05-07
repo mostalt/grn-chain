@@ -1,18 +1,18 @@
 import SHA256 from 'crypto-js/sha256'
 
-export interface IBlock {
+export interface IGBlock {
   timestamp: number | string
   lastHash: string
   hash: string
   data: unknown
 }
 
-export class Block {
-  private _timestamp: IBlock['timestamp']
-  private _lastHash: IBlock['lastHash']
-  private _data: IBlock['data']
+export class GBlock {
+  private _timestamp: IGBlock['timestamp']
+  private _lastHash: IGBlock['lastHash']
+  private _data: IGBlock['data']
 
-  private _hash: IBlock['hash']
+  private _hash: IGBlock['hash']
 
   static sliceHash(hash: string) {
     return hash.substring(0, 10)
@@ -22,10 +22,10 @@ export class Block {
     return new this('Genesis time', '-----', '420waKeUpAndsMile', [])
   }
 
-  static mineBlock(lastBlock: Block, data: unknown) {
+  static mineBlock(lastBlock: GBlock, data: unknown) {
     const timestamp = Date.now()
     const lastHash = lastBlock.hash
-    const hash = Block.hash(timestamp, lastHash, data)
+    const hash = GBlock.hash(timestamp, lastHash, data)
 
     return new this(timestamp, lastHash, hash, data)
   }
@@ -35,10 +35,10 @@ export class Block {
   }
 
   constructor(
-    timestamp: IBlock['timestamp'],
-    lastHash: IBlock['lastHash'],
-    hash: IBlock['hash'],
-    data: IBlock['data'],
+    timestamp: IGBlock['timestamp'],
+    lastHash: IGBlock['lastHash'],
+    hash: IGBlock['hash'],
+    data: IGBlock['data'],
   ) {
     this._timestamp = timestamp
     this._lastHash = lastHash
@@ -61,8 +61,8 @@ export class Block {
   toString() {
     return `Block - 
       Timestamp: ${this._timestamp}
-      Last Hash: ${Block.sliceHash(this._lastHash)}
-      Hash     : ${Block.sliceHash(this._hash)}
+      Last Hash: ${GBlock.sliceHash(this._lastHash)}
+      Hash     : ${GBlock.sliceHash(this._hash)}
       Data     : ${this._data}
     `
   }

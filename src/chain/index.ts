@@ -1,0 +1,1 @@
+export { GChain } from './chain'

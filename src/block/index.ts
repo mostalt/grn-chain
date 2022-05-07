@@ -1,1 +1,1 @@
-export { Block } from './block'
+export { GBlock } from './block'

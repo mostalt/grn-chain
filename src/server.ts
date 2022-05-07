@@ -1,5 +1,5 @@
 // server file
-import { Block } from './block'
+import { GBlock } from './block'
 
-const AwesomeBlock = Block.mineBlock(Block.genesis(), 'foo')
-console.log(AwesomeBlock.toString())
+const AwesomeGBlock = GBlock.mineBlock(GBlock.genesis(), 'foo')
+console.log(AwesomeGBlock.toString())

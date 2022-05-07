@@ -1,21 +1,21 @@
-import { Block } from './block'
+import { GBlock } from './block'
 
 describe('Block', () => {
   let data: unknown = 'data'
-  let lastBlock: Block
-  let block: Block
+  let lastGBlock: GBlock
+  let block: GBlock
 
   beforeEach(() => {
     data = 'some data'
-    lastBlock = Block.genesis()
-    block = Block.mineBlock(lastBlock, data)
+    lastGBlock = GBlock.genesis()
+    block = GBlock.mineBlock(lastGBlock, data)
   })
 
   it('sets the `data` to natch the input', () => {
     expect(block.data).toEqual(data)
   })
 
-  it('sets the `lastHash` to match the hash if the last block', () => {
-    expect(block.lastHash).toEqual(lastBlock.hash)
+  it('sets the `lastHash` to match the hash if the last GBlock', () => {
+    expect(block.lastHash).toEqual(lastGBlock.hash)
   })
 })
