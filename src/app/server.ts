@@ -16,6 +16,8 @@ const p2p = new P2PServer(blockChain, pool)
 
 app.use(bodyParser.json())
 
+// api
+
 app.get('/blocks', (_req, res) => {
   res.json(blockChain.chain)
 })
@@ -48,6 +50,8 @@ app.post('/transact', (req, res) => {
 app.get('/publicKey', (_req, res) => {
   res.json({ publicKey: wallet.publicKey })
 })
+
+// server
 
 const server = app.listen(HTTP_PORT, () => {
   console.log(`Listening on port ${HTTP_PORT}`)
