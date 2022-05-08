@@ -45,6 +45,10 @@ app.post('/transact', (req, res) => {
   }
 })
 
+app.get('/publicKey', (_req, res) => {
+  res.json({ publicKey: wallet.publicKey })
+})
+
 const server = app.listen(HTTP_PORT, () => {
   console.log(`Listening on port ${HTTP_PORT}`)
 })
