@@ -1,16 +1,21 @@
 import { ChainUtil } from '../../utils/chain'
-import { TransactionOutput, TransactionInput } from '../../types'
 import { GWallet } from '../wallet/'
+import {
+  TransactionOutput,
+  TransactionInput,
+  TransactionOutputDTO,
+  TransactionInputDTO,
+} from '../../types'
 
 export class GTransaction {
   private _id: string
   private _input: TransactionInput | null
   private _outputs: TransactionOutput[]
 
-  constructor() {
-    this._id = ChainUtil.id()
-    this._input = null
-    this._outputs = []
+  constructor(id?: string, input?: TransactionInput, outputs?: TransactionOutputDTO[]) {
+    this._id = id || ChainUtil.id()
+    this._input = input || null
+    this._outputs = outputs || []
   }
 
   static newTransaction(senderWallet: GWallet, recipient: string, amount: number) {

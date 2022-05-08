@@ -10,9 +10,9 @@ const HTTP_PORT = process.env.HTTP_PORT || 4200
 
 const app = express()
 const blockChain = new GChain()
-const p2p = new P2PServer(blockChain)
 const wallet = new GWallet()
 const pool = new GTransactionPool()
+const p2p = new P2PServer(blockChain, pool)
 
 app.use(bodyParser.json())
 
@@ -35,9 +35,14 @@ app.get('/transactions', (_req, res) => {
 
 app.post('/transact', (req, res) => {
   const { recipient, amount }: { recipient: string; amount: number } = req.body
-  const _transaction = wallet.createTransaction(recipient, amount, pool)
+  const transaction = wallet.createTransaction(recipient, amount, pool)
 
-  res.redirect('/transactions')
+  if (transaction) {
+    p2p.broadcastTransaction(transaction)
+    res.redirect('/transactions')
+  } else {
+    res.sendStatus(500).json({ error: 'invalid transaction' })
+  }
 })
 
 const server = app.listen(HTTP_PORT, () => {

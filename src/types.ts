@@ -26,3 +26,30 @@ export interface IGBlock {
   nonce: number
   difficulty: number
 }
+
+export type GBlockDTO = {
+  _timestamp: number
+  _lastHash: string
+  _hash: string
+  _data: unknown
+  _nonce: number
+  _difficulty: number
+}
+
+export type GTransactionDTO = {
+  _id: string
+  _input: TransactionInputDTO
+  _outputs: TransactionOutputDTO[]
+}
+
+export type TransactionOutputDTO = {
+  amount: number
+  address: string
+}
+
+export type TransactionInputDTO = {
+  timestamp: number
+  amount: 500
+  address: string
+  signature: ec.Signature
+}
