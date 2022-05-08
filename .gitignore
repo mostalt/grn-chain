@@ -1,3 +1,6 @@
 _example
 node_modules
 coverage
+
+# config
+config/development.ts

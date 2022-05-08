@@ -1,0 +1,5 @@
+const settings = {
+  difficulty: 4,
+}
+
+export default settings

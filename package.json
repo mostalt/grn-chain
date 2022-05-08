@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "NODE_ENV=development jest --watchAll",
     "lint": "eslint .",
-    "app": "nodemon --watch src app/server.ts --exec \"ts-node --transpile-only\""
+    "app": "nodemon --watch src --watch config src/app/server.ts --exec \"ts-node --transpile-only\"",
+    "dev": "nodemon --watch src --watch config src/dev-test.ts --exec \"ts-node --transpile-only\""
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@babel/preset-typescript": "^7.16.7",
     "@tsconfig/node16": "^1.0.2",
+    "@types/config": "^0.0.41",
     "@types/crypto-js": "^4.1.1",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.5.0",
@@ -30,6 +32,7 @@
   },
   "dependencies": {
     "body-parser": "^1.20.0",
+    "config": "^3.3.7",
     "crypto-js": "^4.1.1",
     "express": "^4.18.1",
     "ws": "^8.6.0"
