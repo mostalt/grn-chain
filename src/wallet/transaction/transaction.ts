@@ -1,6 +1,6 @@
 import { ChainUtil } from '../../utils/chain'
-import { GWallet } from '../wallet'
 import { TransactionOutput } from '../../types'
+import { GWallet } from '../wallet/'
 
 export class GTransaction {
   private _id: string

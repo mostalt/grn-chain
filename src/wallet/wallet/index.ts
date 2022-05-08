@@ -1,0 +1,1 @@
+export { GWallet } from './wallet'

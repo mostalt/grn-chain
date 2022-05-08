@@ -1,7 +1,7 @@
 import { ec } from 'elliptic'
 
-import { getSetting } from '../utils/settings'
-import { ChainUtil } from '../utils/chain'
+import { getSetting } from '../../utils/settings'
+import { ChainUtil } from '../../utils/chain'
 
 const INITIAL_BALANCE = getSetting('initialBalance')
 

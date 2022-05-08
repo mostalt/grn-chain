@@ -1,5 +1,5 @@
 import { GTransaction } from './transaction'
-import { GWallet } from '../wallet'
+import { GWallet } from '../wallet/wallet'
 
 describe('Transaction', () => {
   let wallet: GWallet
