@@ -5,8 +5,8 @@ import { ChainUtil } from '../utils/chain'
 
 const INITIAL_BALANCE = getSetting('initialBalance')
 
-export class Wallet {
-  private _balance: number
+export class GWallet {
+  private _balance: number // TODO: use bigInt
   private _keyPair: ec.KeyPair
   private _publicKey: string
 
@@ -16,7 +16,17 @@ export class Wallet {
     this._publicKey = this._keyPair.getPublic().encode('hex', false)
   }
 
-  toString() {
+  get balance() {
+    return this._balance
+  }
+
+  get publicKey() {
+    return this._publicKey
+  }
+
+  public addOutput() {}
+
+  public toString() {
     return `Wallet -
 			publicKey : ${this._publicKey.toString()}
 			balance   : ${this._balance}

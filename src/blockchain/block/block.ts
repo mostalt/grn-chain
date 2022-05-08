@@ -7,6 +7,22 @@ const DIFFICULTY = getSetting('difficulty')
 const MINE_RATE = getSetting('mineRate')
 
 export class GBlock {
+  constructor(
+    timestamp: IGBlock['timestamp'],
+    lastHash: IGBlock['lastHash'],
+    hash: IGBlock['hash'],
+    data: IGBlock['data'],
+    nonce: IGBlock['nonce'],
+    difficulty?: IGBlock['difficulty'],
+  ) {
+    this._timestamp = timestamp
+    this._lastHash = lastHash
+    this._hash = hash
+    this._data = data
+    this._nonce = nonce
+    this._difficulty = difficulty || DIFFICULTY
+  }
+
   private _timestamp: IGBlock['timestamp']
   private _lastHash: IGBlock['lastHash']
   private _hash: IGBlock['hash']
@@ -61,22 +77,6 @@ export class GBlock {
     const { timestamp, lastHash, data, nonce, difficulty } = block
 
     return GBlock.hash(timestamp, lastHash, data, nonce, difficulty)
-  }
-
-  constructor(
-    timestamp: IGBlock['timestamp'],
-    lastHash: IGBlock['lastHash'],
-    hash: IGBlock['hash'],
-    data: IGBlock['data'],
-    nonce: IGBlock['nonce'],
-    difficulty?: IGBlock['difficulty'],
-  ) {
-    this._timestamp = timestamp
-    this._lastHash = lastHash
-    this._hash = hash
-    this._data = data
-    this._nonce = nonce
-    this._difficulty = difficulty || DIFFICULTY
   }
 
   get timestamp() {

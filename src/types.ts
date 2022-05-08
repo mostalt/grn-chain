@@ -4,6 +4,11 @@ export interface IConfig {
   initialBalance: number
 }
 
+export type TransactionOutput = {
+  amount: number
+  address: string
+}
+
 export interface IGBlock {
   timestamp: number
   lastHash: string
