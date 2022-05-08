@@ -1,11 +1,13 @@
 {
   "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "outDir": "dist",
     "resolveJsonModule": true,
   },
   "files": ["global.d.ts"],
-  "include": ["."],
+  "include": [ 
+    "."
+  ],
   "exclude": ["node_modules"]
 }

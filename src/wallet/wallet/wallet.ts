@@ -2,6 +2,8 @@ import { ec } from 'elliptic'
 
 import { getSetting } from '../../utils/settings'
 import { ChainUtil } from '../../utils/chain'
+import { GTransactionPool } from '../pool'
+import { GTransaction } from '../transaction'
 
 const INITIAL_BALANCE = getSetting('initialBalance')
 
@@ -33,5 +35,22 @@ export class GWallet {
 
   public sign(hash: string) {
     return this._keyPair.sign(hash)
+  }
+
+  public createTransaction(recipient: string, amount: number, pool: GTransactionPool) {
+    if (amount > this._balance) {
+      console.log(`Amount: ${amount} exceeds current banalce: ${this._balance}`)
+      return
+    }
+
+    let transaction = pool.existingTransaction(this._publicKey)
+
+    if (transaction) {
+      transaction.update(this, recipient, amount)
+    } else {
+      transaction = GTransaction.newTransaction(this, recipient, amount)
+    }
+
+    return transaction
   }
 }

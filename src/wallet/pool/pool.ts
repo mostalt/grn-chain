@@ -22,4 +22,8 @@ export class GTransactionPool {
       this._transactions.push(transaction)
     }
   }
+
+  existingTransaction(address: string) {
+    return this._transactions.find(({ input }) => input?.address === address)
+  }
 }
