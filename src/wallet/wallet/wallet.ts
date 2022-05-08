@@ -49,6 +49,7 @@ export class GWallet {
       transaction.update(this, recipient, amount)
     } else {
       transaction = GTransaction.newTransaction(this, recipient, amount)
+      pool.updateOrAddTransaction(transaction)
     }
 
     return transaction

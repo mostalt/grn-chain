@@ -3,12 +3,16 @@ import bodyParser from 'body-parser'
 
 import { GChain } from '../blockchain/chain'
 import { P2PServer } from './p2p'
+import { GWallet } from '../wallet'
+import { GTransactionPool } from '../wallet'
 
 const HTTP_PORT = process.env.HTTP_PORT || 4200
 
 const app = express()
 const blockChain = new GChain()
 const p2p = new P2PServer(blockChain)
+const wallet = new GWallet()
+const pool = new GTransactionPool()
 
 app.use(bodyParser.json())
 
@@ -23,6 +27,17 @@ app.post('/mine', (req, res) => {
   p2p.syncChains()
 
   res.redirect('/blocks')
+})
+
+app.get('/transactions', (_req, res) => {
+  res.json(pool.transactions)
+})
+
+app.post('/transact', (req, res) => {
+  const { recipient, amount }: { recipient: string; amount: number } = req.body
+  const _transaction = wallet.createTransaction(recipient, amount, pool)
+
+  res.redirect('/transactions')
 })
 
 const server = app.listen(HTTP_PORT, () => {
