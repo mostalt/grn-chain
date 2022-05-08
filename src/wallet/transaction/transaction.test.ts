@@ -32,7 +32,7 @@ describe('Transaction', () => {
     expect(transaction?.input?.amount).toEqual(wallet.balance)
   })
 
-  it.only('validates a valid transaction', () => {
+  it('validates a valid transaction', () => {
     expect(GTransaction.verifyTransaction(transaction)).toBe(true)
   })
 
