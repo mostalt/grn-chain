@@ -32,12 +32,33 @@ export class GTransaction {
   }
 
   static signTransaction(transaction: GTransaction, senderWallet: GWallet) {
+    console.log(ChainUtil.hash(transaction.outputs), 'SIGN')
+    console.log(senderWallet.publicKey, 'senderWallet.publicKey')
     transaction.addInput({
       timestamp: Date.now(),
       amount: senderWallet.balance,
       address: senderWallet.publicKey,
       signature: senderWallet.sign(ChainUtil.hash(transaction.outputs)),
     })
+  }
+
+  static verifyTransaction(transaction: GTransaction | undefined) {
+    if (!transaction || !transaction.input) {
+      return false
+    }
+
+    console.log(transaction, 'transaction')
+    console.log(transaction.input.signature, 'input.signature')
+
+    const result = ChainUtil.verifySignature(
+      transaction.input.address,
+      transaction.input.signature,
+      ChainUtil.hash(transaction.outputs),
+    )
+
+    console.log(result)
+
+    return result
   }
 
   get outputs() {

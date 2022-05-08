@@ -7,8 +7,8 @@ const INITIAL_BALANCE = getSetting('initialBalance')
 
 export class GWallet {
   private _balance: number // TODO: use bigInt
-  private _keyPair: ec.KeyPair
   private _publicKey: string
+  private _keyPair: ec.KeyPair
 
   constructor() {
     this._balance = INITIAL_BALANCE

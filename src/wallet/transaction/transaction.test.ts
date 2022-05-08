@@ -32,6 +32,16 @@ describe('Transaction', () => {
     expect(transaction?.input?.amount).toEqual(wallet.balance)
   })
 
+  it.only('validates a valid transaction', () => {
+    expect(GTransaction.verifyTransaction(transaction)).toBe(true)
+  })
+
+  it('invalidate a corrupt transaction', () => {
+    // @ts-ignore: just in case
+    transaction.outputs[0].amount = 5000
+    expect(GTransaction.verifyTransaction(transaction)).toBe(false)
+  })
+
   describe('transacting with an amount the exceeds the balance', () => {
     beforeEach(() => {
       amount = 50000
