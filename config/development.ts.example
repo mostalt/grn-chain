@@ -1,5 +1,6 @@
 const settings = {
   difficulty: 4,
+  mineRate: 3000,
 }
 
 export default settings
