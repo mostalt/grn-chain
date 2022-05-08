@@ -8,7 +8,11 @@ const config: Config.InitialOptions = {
   verbose: true,
   testPathIgnorePatterns: ['/node_modules/'],
   roots: ['<rootDir>/src'],
-  // setupFilesAfterEnv: ['<rootDir>/config/jest/setupJest.ts'],
+  setupFilesAfterEnv: [
+    // '<rootDir>/config/jest/setupJest.ts',
+    'jest-extended/all',
+    'jest-chain',
+  ],
   unmockedModulePathPatterns: ['utils'],
   collectCoverage: true,
   coverageDirectory: 'coverage',

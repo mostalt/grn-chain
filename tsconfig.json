@@ -5,6 +5,7 @@
     "outDir": "dist",
     "resolveJsonModule": true,
   },
-  "include": ["src", "blockchain", "src/app"],
+  "files": ["global.d.ts"],
+  "include": ["."],
   "exclude": ["node_modules"]
 }
