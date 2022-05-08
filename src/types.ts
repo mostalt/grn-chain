@@ -1,6 +1,7 @@
 export interface IConfig {
   difficulty: number
   mineRate: number // ms
+  initialBalance: number
 }
 
 export interface IGBlock {

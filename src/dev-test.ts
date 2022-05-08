@@ -1,9 +1,4 @@
-import { GChain } from './blockchain/chain'
+import { Wallet } from './wallet'
 
-const BLOCK_COUNT = 10
-
-const blockChain = new GChain()
-
-for (let i = 0; i < BLOCK_COUNT; i++) {
-  console.log(blockChain.addGBlock(`block number ${i}`).toString())
-}
+const wallet = new Wallet()
+console.log(wallet.toString())
