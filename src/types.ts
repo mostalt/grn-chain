@@ -1,3 +1,5 @@
+import { ec } from 'elliptic'
+
 export interface IConfig {
   difficulty: number
   mineRate: number // ms
@@ -7,6 +9,13 @@ export interface IConfig {
 export type TransactionOutput = {
   amount: number
   address: string
+}
+
+export type TransactionInput = {
+  timestamp: number
+  amount: number
+  address: string
+  signature: ec.Signature
 }
 
 export interface IGBlock {

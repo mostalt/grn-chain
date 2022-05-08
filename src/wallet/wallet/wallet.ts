@@ -32,4 +32,8 @@ export class GWallet {
 			balance   : ${this._balance}
 		`
   }
+
+  public sign(hash: string) {
+    return this._keyPair.sign(hash)
+  }
 }

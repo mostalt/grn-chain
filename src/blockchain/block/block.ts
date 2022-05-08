@@ -1,7 +1,6 @@
-import SHA256 from 'crypto-js/sha256'
-
 import { IGBlock } from '../../types'
 import { getSetting } from '../../utils/settings'
+import { ChainUtil } from '../../utils/chain'
 
 const DIFFICULTY = getSetting('difficulty')
 const MINE_RATE = getSetting('mineRate')
@@ -70,7 +69,7 @@ export class GBlock {
     nonce: IGBlock['nonce'],
     difficulty: IGBlock['difficulty'],
   ) {
-    return SHA256(`${timestamp}${lashHash}${data}${nonce}${difficulty}`).toString()
+    return ChainUtil.hash(`${timestamp}${lashHash}${data}${nonce}${difficulty}`).toString()
   }
 
   static blockHash(block: IGBlock) {

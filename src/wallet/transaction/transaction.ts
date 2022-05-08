@@ -1,10 +1,10 @@
 import { ChainUtil } from '../../utils/chain'
-import { TransactionOutput } from '../../types'
+import { TransactionOutput, TransactionInput } from '../../types'
 import { GWallet } from '../wallet/'
 
 export class GTransaction {
   private _id: string
-  private _input: null
+  private _input: TransactionInput | null
   private _outputs: TransactionOutput[]
 
   constructor() {
@@ -26,17 +26,42 @@ export class GTransaction {
       { amount, address: recipient },
     ])
 
+    GTransaction.signTransaction(transaction, senderWallet)
+
     return transaction
+  }
+
+  static signTransaction(transaction: GTransaction, senderWallet: GWallet) {
+    transaction.addInput({
+      timestamp: Date.now(),
+      amount: senderWallet.balance,
+      address: senderWallet.publicKey,
+      signature: senderWallet.sign(ChainUtil.hash(transaction.outputs)),
+    })
   }
 
   get outputs() {
     return this._outputs
   }
 
+  get input() {
+    return this._input
+  }
+
+  get id() {
+    return this._id
+  }
+
   public addOutput(items: TransactionOutput[]) {
     if (items && items.length) {
       this._outputs.push(...items)
       console.log('Ouput added')
+    }
+  }
+
+  public addInput(input: TransactionInput) {
+    if (input) {
+      this._input = input
     }
   }
 }
