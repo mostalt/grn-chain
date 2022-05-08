@@ -24,8 +24,6 @@ export class GWallet {
     return this._publicKey
   }
 
-  public addOutput() {}
-
   public toString() {
     return `Wallet -
 			publicKey : ${this._publicKey.toString()}

@@ -52,4 +52,27 @@ describe('Transaction', () => {
       expect(transaction).toEqual(undefined)
     })
   })
+
+  describe('updation a transaction', () => {
+    let nextAmout: number
+    let nextRecipient: string
+
+    beforeEach(() => {
+      nextAmout = 20
+      nextRecipient = 'aN0tHeR420Re(iP1eNt'
+      transaction = transaction?.update(wallet, nextRecipient, nextAmout)
+    })
+
+    it(`subtracts the next amout from the sender's output`, () => {
+      expect(
+        transaction?.outputs.find((output) => output.address === wallet.publicKey)?.amount,
+      ).toEqual(wallet.balance - amount - nextAmout)
+    })
+
+    it('outputs an amount for the next recipient', () => {
+      expect(transaction?.outputs.find((output) => output.address === nextRecipient)?.amount).toBe(
+        nextAmout,
+      )
+    })
+  })
 })

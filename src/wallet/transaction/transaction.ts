@@ -64,10 +64,29 @@ export class GTransaction {
     return this._id
   }
 
+  update(senderWallet: GWallet, recipient: string, amount: number) {
+    const senderOutput = this._outputs.find((output) => output.address === senderWallet.publicKey)
+
+    if (!senderOutput) {
+      console.log('Output is not defined')
+      return
+    }
+
+    if (amount > senderOutput.amount) {
+      console.log(`Amount: ${amount} exceeds balance`)
+      return
+    }
+
+    senderOutput.amount = senderOutput.amount - amount
+    this._outputs.push({ amount, address: recipient })
+    GTransaction.signTransaction(this, senderWallet)
+
+    return this
+  }
+
   public addOutput(items: TransactionOutput[]) {
     if (items && items.length) {
       this._outputs.push(...items)
-      console.log('Ouput added')
     }
   }
 
