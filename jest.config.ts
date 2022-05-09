@@ -10,8 +10,8 @@ const config: Config.InitialOptions = {
   roots: ['<rootDir>/src'],
   setupFilesAfterEnv: [
     // '<rootDir>/config/jest/setupJest.ts',
-    'jest-extended/all',
-    'jest-chain',
+    // 'jest-extended/all',
+    // 'jest-chain',
   ],
   unmockedModulePathPatterns: ['utils'],
   collectCoverage: true,

@@ -26,4 +26,31 @@ export class GTransactionPool {
   existingTransaction(address: string) {
     return this._transactions.find(({ input }) => input?.address === address)
   }
+
+  validTransactions() {
+    return this._transactions.filter((t) => {
+      const { input, outputs } = t
+
+      const outputTotal = outputs.reduce<number>((acc, { amount }) => {
+        return acc + amount
+      }, 0)
+
+      if (!input) {
+        console.log('input is null or undefined')
+        return
+      }
+
+      if (input.amount !== outputTotal) {
+        console.log(`Invalid transaction from ${input.address}`)
+        return
+      }
+
+      if (!GTransaction.verifyTransaction(t)) {
+        console.log(`Invalid signature from ${input.address}`)
+        return
+      }
+
+      return t
+    })
+  }
 }

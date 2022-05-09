@@ -28,9 +28,9 @@ describe('Wallet', () => {
       })
 
       it('doubles the `sendAmout` subtracted from the wallet balance', () => {
-        expect(transaction?.outputs?.find((output) => output.address === wallet.publicKey)?.amount)
-          .toBeDefined()
-          .toEqual(wallet.balance - sendAmount * 2)
+        expect(
+          transaction?.outputs?.find((output) => output.address === wallet.publicKey)?.amount,
+        ).toEqual(wallet.balance - sendAmount * 2)
       })
 
       it('clones the `sendAmount` output for the recipient', () => {
@@ -38,9 +38,7 @@ describe('Wallet', () => {
           transaction?.outputs
             .filter(({ address }) => address === recepient)
             .map(({ amount }) => amount),
-        )
-          .toBeDefined()
-          .toEqual([sendAmount, sendAmount])
+        ).toEqual([sendAmount, sendAmount])
       })
     })
   })
