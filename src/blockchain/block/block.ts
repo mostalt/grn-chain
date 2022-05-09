@@ -6,6 +6,13 @@ const DIFFICULTY = getSetting('difficulty')
 const MINE_RATE = getSetting('mineRate')
 
 export class GBlock {
+  private _timestamp: IGBlock['timestamp']
+  private _lastHash: IGBlock['lastHash']
+  private _hash: IGBlock['hash']
+  private _data: IGBlock['data']
+  private _nonce: IGBlock['nonce']
+  private _difficulty: IGBlock['difficulty']
+
   constructor(
     timestamp: IGBlock['timestamp'],
     lastHash: IGBlock['lastHash'],
@@ -21,13 +28,6 @@ export class GBlock {
     this._nonce = nonce
     this._difficulty = difficulty || DIFFICULTY
   }
-
-  private _timestamp: IGBlock['timestamp']
-  private _lastHash: IGBlock['lastHash']
-  private _hash: IGBlock['hash']
-  private _data: IGBlock['data']
-  private _nonce: IGBlock['nonce']
-  private _difficulty: IGBlock['difficulty']
 
   static sliceHash(hash: string) {
     return hash.substring(0, 10)

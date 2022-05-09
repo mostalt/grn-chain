@@ -1,11 +1,11 @@
 import { GTransaction } from '../transaction'
 
 export class GTransactionPool {
+  private _transactions: GTransaction[]
+
   constructor() {
     this._transactions = []
   }
-
-  private _transactions: GTransaction[]
 
   get transactions() {
     return this._transactions

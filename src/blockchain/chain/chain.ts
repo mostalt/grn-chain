@@ -1,11 +1,11 @@
 import { GBlock } from '../block'
 
 export class GChain {
+  private _chain: GBlock[]
+
   constructor() {
     this._chain = [GBlock.genesis()]
   }
-
-  private _chain: GBlock[]
 
   get chain() {
     return this._chain

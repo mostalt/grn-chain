@@ -23,15 +23,15 @@ const MESSAGE_TYPES = {
 } as const
 
 export class P2PServer {
+  private _blockchain: GChain
+  private _pool: GTransactionPool
+  private _sockets: WebSocket[]
+
   constructor(blockchain: GChain, pool: GTransactionPool) {
     this._blockchain = blockchain
     this._pool = pool
     this._sockets = []
   }
-
-  private _blockchain: GChain
-  private _pool: GTransactionPool
-  private _sockets: WebSocket[]
 
   private _connectSocket(socket: WebSocket) {
     this._sockets.push(socket)
