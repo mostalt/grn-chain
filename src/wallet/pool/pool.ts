@@ -53,4 +53,8 @@ export class GTransactionPool {
       return t
     })
   }
+
+  clear() {
+    this._transactions = []
+  }
 }

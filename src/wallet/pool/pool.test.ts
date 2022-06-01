@@ -33,6 +33,11 @@ describe('TransactionPool', () => {
     expect(current).not.toEqual(oldTransaction)
   })
 
+  it('clears transactions', () => {
+    pool.clear()
+    expect(pool.transactions).toEqual([])
+  })
+
   describe('mixing valid and corrupt transactions', () => {
     let validTransactions: GTransaction[]
 

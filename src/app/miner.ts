@@ -1,5 +1,5 @@
 import { P2PServer } from './p2p'
-import { GTransactionPool, GWallet } from '../wallet'
+import { GTransaction, GTransactionPool, GWallet } from '../wallet'
 import { GChain } from '../blockchain/chain'
 
 export class Miner {
@@ -16,11 +16,11 @@ export class Miner {
   }
 
   mine() {
-    // get valid transaction
-    // include a reward for the miner
-    // create block consisting of valid transactions
-    // synchronize the chains in the p2p server
-    // clear the trasaction pool
+    const validTransactions = this._pool.validTransactions()
+    validTransactions.push(GTransaction.rewardTransaction(this._wallet, GWallet.blockchainWallet()))
+    const block = this._chain.addGBlock(validTransactions)
+    this._p2p.syncChains()
+    this._pool.clear()
     // broadcast to every miner to clear their transaction pools
   }
 }

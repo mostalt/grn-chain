@@ -26,8 +26,6 @@ export class GTransaction {
   }
 
   static newTransaction(senderWallet: GWallet, recipient: string, amount: number) {
-    const transaction = new this()
-
     if (amount > senderWallet.balance) {
       console.log(`Amount: ${amount} exceeds balance`)
       return
