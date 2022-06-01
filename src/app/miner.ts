@@ -21,6 +21,8 @@ export class Miner {
     const block = this._chain.addGBlock(validTransactions)
     this._p2p.syncChains()
     this._pool.clear()
-    // broadcast to every miner to clear their transaction pools
+    this._p2p.broadcastClearTransactions()
+
+    return block
   }
 }

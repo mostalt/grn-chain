@@ -14,12 +14,16 @@ type P2PMessage =
       type: 'TRANSACTION'
       transaction: GTransactionDTO
     }
+  | {
+      type: 'CLEAR_TRANSACTION'
+    }
 
 const P2P_PORT = Number(process.env.P2P_PORT) || 5001
 const PEERS: string[] = process.env.PEERS ? process.env.PEERS.split(',') : []
 const MESSAGE_TYPES = {
   chain: 'CHAIN',
   transaction: 'TRANSACTION',
+  clear_transaction: 'CLEAR_TRANSACTION',
 } as const
 
 export class P2PServer {
@@ -68,6 +72,10 @@ export class P2PServer {
           const transaction = new GTransaction(_id, _input, _outputs)
           this._pool.updateOrAddTransaction(transaction)
           break
+
+        case MESSAGE_TYPES.clear_transaction:
+          this._pool.clear()
+          break
       }
     })
   }
@@ -93,6 +101,12 @@ export class P2PServer {
   public broadcastTransaction(transaction: GTransaction) {
     this._sockets.forEach((socket) => {
       this._sendTransation(socket, transaction)
+    })
+  }
+
+  public broadcastClearTransactions() {
+    this._sockets.forEach((socket) => {
+      socket.send(JSON.stringify({ type: MESSAGE_TYPES.clear_transaction }))
     })
   }
 
