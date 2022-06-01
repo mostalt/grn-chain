@@ -2,7 +2,7 @@ import { P2PServer } from './p2p'
 import { GTransaction, GTransactionPool, GWallet } from '../wallet'
 import { GChain } from '../blockchain/chain'
 
-export class Miner {
+export class GMiner {
   private _chain: GChain
   private _pool: GTransactionPool
   private _wallet: GWallet
