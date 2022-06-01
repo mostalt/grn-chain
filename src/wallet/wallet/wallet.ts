@@ -11,18 +11,16 @@ export class GWallet {
   private _balance: number // TODO: use bigInt
   private _publicKey: string
   private _keyPair: ec.KeyPair
-  private _address: string | null
 
   constructor() {
     this._balance = INITIAL_BALANCE
     this._keyPair = ChainUtil.genKeyPair()
     this._publicKey = this._keyPair.getPublic().encode('hex', false)
-    this._address = null
   }
 
   static blockchainWallet() {
     const wallet = new this()
-    wallet.setAddress('blckchnwllt')
+    wallet.setBlockchainPublicKey()
 
     return wallet
   }
@@ -64,11 +62,7 @@ export class GWallet {
     return transaction
   }
 
-  private setAddress(address: string) {
-    this._address = address
-  }
-
-  get address() {
-    return this._address
+  setBlockchainPublicKey() {
+    this._publicKey = 'blckchnwllt'
   }
 }
