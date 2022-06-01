@@ -27,7 +27,55 @@ export class GWallet {
     return wallet
   }
 
-  private _calculateBalance(chain: GChain) {
+  get balance() {
+    return this._balance
+  }
+
+  get publicKey() {
+    return this._publicKey
+  }
+
+  public toString() {
+    return `Wallet -
+			publicKey : ${this._publicKey.toString()}
+			balance   : ${this._balance}
+		`
+  }
+
+  public sign(hash: string) {
+    return this._keyPair.sign(hash)
+  }
+
+  public createTransaction(
+    recipient: string,
+    amount: number,
+    chain: GChain,
+    pool: GTransactionPool,
+  ) {
+    this._balance = this.calculateBalance(chain)
+
+    if (amount > this._balance) {
+      console.log(`Amount: ${amount} exceeds current banalce: ${this._balance}`)
+      return
+    }
+
+    let transaction = pool.existingTransaction(this._publicKey)
+
+    if (transaction) {
+      transaction.update(this, recipient, amount)
+    } else {
+      transaction = GTransaction.newTransaction(this, recipient, amount)
+      pool.updateOrAddTransaction(transaction)
+    }
+
+    return transaction
+  }
+
+  setBlockchainPublicKey() {
+    this._publicKey = 'blckchnwllt'
+  }
+
+  calculateBalance(chain: GChain) {
     let balance = this._balance
     let transactions: GTransactionDTO[] = []
 
@@ -69,53 +117,5 @@ export class GWallet {
     })
 
     return balance
-  }
-
-  get balance() {
-    return this._balance
-  }
-
-  get publicKey() {
-    return this._publicKey
-  }
-
-  public toString() {
-    return `Wallet -
-			publicKey : ${this._publicKey.toString()}
-			balance   : ${this._balance}
-		`
-  }
-
-  public sign(hash: string) {
-    return this._keyPair.sign(hash)
-  }
-
-  public createTransaction(
-    recipient: string,
-    amount: number,
-    chain: GChain,
-    pool: GTransactionPool,
-  ) {
-    this._balance = this._calculateBalance(chain)
-
-    if (amount > this._balance) {
-      console.log(`Amount: ${amount} exceeds current banalce: ${this._balance}`)
-      return
-    }
-
-    let transaction = pool.existingTransaction(this._publicKey)
-
-    if (transaction) {
-      transaction.update(this, recipient, amount)
-    } else {
-      transaction = GTransaction.newTransaction(this, recipient, amount)
-      pool.updateOrAddTransaction(transaction)
-    }
-
-    return transaction
-  }
-
-  setBlockchainPublicKey() {
-    this._publicKey = 'blckchnwllt'
   }
 }
