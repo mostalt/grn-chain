@@ -1,3 +1,5 @@
+import { GTransactionDTO } from '../../types'
+import { GTransaction } from '../../wallet'
 import { GBlock } from '../block'
 
 export class GChain {
@@ -11,8 +13,8 @@ export class GChain {
     return this._chain
   }
 
-  addGBlock(data: unknown) {
-    const block = GBlock.mineBlock(this._chain[this._chain.length - 1], data)
+  addGBlock(data?: GTransactionDTO[]) {
+    const block = GBlock.mineBlock(this._chain[this._chain.length - 1], data ? data : null)
     this._chain.push(block)
 
     return block

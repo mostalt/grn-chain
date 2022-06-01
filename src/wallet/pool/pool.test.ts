@@ -1,3 +1,4 @@
+import { GChain } from '../../blockchain/chain'
 import { TransactionInput } from '../../types'
 import { GTransaction } from '../transaction'
 import { GWallet } from '../wallet'
@@ -6,12 +7,14 @@ import { GTransactionPool } from './pool'
 describe('TransactionPool', () => {
   let pool: GTransactionPool
   let wallet: GWallet
+  let chain: GChain
   let transaction: GTransaction | undefined
 
   beforeEach(() => {
     pool = new GTransactionPool()
     wallet = new GWallet()
-    transaction = wallet.createTransaction('pUpURec1piEnt', 30, pool)
+    chain = new GChain()
+    transaction = wallet.createTransaction('pUpURec1piEnt', 30, chain, pool)
   })
 
   it('add a transaction to the pool', () => {
@@ -46,7 +49,7 @@ describe('TransactionPool', () => {
 
       for (let i = 0; i < 6; i++) {
         wallet = new GWallet()
-        transaction = wallet.createTransaction('pUpURec1piEnt', 30, pool)
+        transaction = wallet.createTransaction('pUpURec1piEnt', 30, chain, pool)
 
         if (!transaction) {
           return

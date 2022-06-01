@@ -1,17 +1,17 @@
 import { GBlock } from './block'
 
 describe('Block', () => {
-  let data: unknown = 'data'
+  let data: null = null
   let lastGBlock: GBlock
   let block: GBlock
 
   beforeEach(() => {
-    data = 'some data'
+    data = null
     lastGBlock = GBlock.genesis()
     block = GBlock.mineBlock(lastGBlock, data)
   })
 
-  it('sets the `data` to natch the input', () => {
+  it('sets the `data` to match the input', () => {
     expect(block.data).toEqual(data)
   })
 

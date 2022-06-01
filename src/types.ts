@@ -1,4 +1,5 @@
 import { ec } from 'elliptic'
+import { GTransaction } from './wallet'
 
 export interface IConfig {
   difficulty: number
@@ -23,7 +24,7 @@ export interface IGBlock {
   timestamp: number
   lastHash: string
   hash: string
-  data: unknown
+  data: GTransactionDTO[] | null
   nonce: number
   difficulty: number
 }
@@ -32,7 +33,7 @@ export type GBlockDTO = {
   _timestamp: number
   _lastHash: string
   _hash: string
-  _data: unknown
+  _data: GTransactionDTO[]
   _nonce: number
   _difficulty: number
 }

@@ -18,7 +18,7 @@ export class GMiner {
   mine() {
     const validTransactions = this._pool.validTransactions()
     validTransactions.push(GTransaction.rewardTransaction(this._wallet, GWallet.blockchainWallet()))
-    const block = this._chain.addGBlock(validTransactions)
+    const block = this._chain.addGBlock(validTransactions.map((transaction) => transaction.toDto()))
     this._p2p.syncChains()
     this._pool.clear()
     this._p2p.broadcastClearTransactions()

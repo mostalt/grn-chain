@@ -1,6 +1,7 @@
-import { IGBlock } from '../../types'
+import { GTransactionDTO, IGBlock } from '../../types'
 import { getSetting } from '../../utils/settings'
 import { ChainUtil } from '../../utils/chain'
+import { GTransaction } from 'src/wallet'
 
 const DIFFICULTY = getSetting('difficulty')
 const MINE_RATE = getSetting('mineRate')
@@ -34,7 +35,7 @@ export class GBlock {
   }
 
   static genesis() {
-    return new this(420, '-----', '420w@KeUpAnd$M1le', 'Genesis', 0, DIFFICULTY)
+    return new this(420, '-----', '420w@KeUpAnd$M1leGEne$1s', [], 0, DIFFICULTY)
   }
 
   static adjustDifficulty(lastBlock: GBlock, currentTime: IGBlock['timestamp']) {
@@ -43,7 +44,7 @@ export class GBlock {
     return lastBlock.timestamp + MINE_RATE > currentTime ? difficulty + 1 : difficulty - 1
   }
 
-  static mineBlock(lastBlock: GBlock, data: unknown) {
+  static mineBlock(lastBlock: GBlock, data: GTransactionDTO[] | null) {
     let timestamp: IGBlock['timestamp']
     let hash: IGBlock['hash']
     let nonce: IGBlock['nonce'] = 0
@@ -55,7 +56,7 @@ export class GBlock {
       nonce++
       timestamp = Date.now()
       currentDifficulty = GBlock.adjustDifficulty(lastBlock, timestamp)
-      hash = GBlock.hash(timestamp, lastHash, data, nonce, currentDifficulty)
+      hash = GBlock.hash(timestamp, lastHash, null, nonce, currentDifficulty)
       // console.log('hash: ', hash)
     } while (hash.substring(0, currentDifficulty) !== '0'.repeat(currentDifficulty))
 

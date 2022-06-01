@@ -1,6 +1,11 @@
 import { ChainUtil } from '../../utils/chain'
 import { GWallet } from '../wallet/'
-import { TransactionOutput, TransactionInput, TransactionOutputDTO } from '../../types'
+import {
+  TransactionOutput,
+  TransactionInput,
+  TransactionOutputDTO,
+  GTransactionDTO,
+} from '../../types'
 import { getSetting } from '../../utils/settings'
 
 const MINING_REWARD = getSetting('miningReward')
@@ -109,5 +114,9 @@ export class GTransaction {
     if (input) {
       this._input = input
     }
+  }
+
+  public toDto() {
+    return JSON.parse(JSON.stringify(this)) as GTransactionDTO
   }
 }
