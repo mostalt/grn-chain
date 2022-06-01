@@ -4,6 +4,7 @@ export interface IConfig {
   difficulty: number
   mineRate: number // ms
   initialBalance: number
+  miningReward: number
 }
 
 export type TransactionOutput = {

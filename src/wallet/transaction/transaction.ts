@@ -1,6 +1,9 @@
 import { ChainUtil } from '../../utils/chain'
 import { GWallet } from '../wallet/'
 import { TransactionOutput, TransactionInput, TransactionOutputDTO } from '../../types'
+import { getSetting } from '../../utils/settings'
+
+const MINING_REWARD = getSetting('miningReward')
 
 export class GTransaction {
   private _id: string
@@ -13,6 +16,15 @@ export class GTransaction {
     this._outputs = outputs || []
   }
 
+  static transactionWithOutput(senderWallet: GWallet, outputs: TransactionOutput[]) {
+    const transaction = new this()
+
+    transaction.outputs.push(...outputs)
+    GTransaction.signTransaction(transaction, senderWallet)
+
+    return transaction
+  }
+
   static newTransaction(senderWallet: GWallet, recipient: string, amount: number) {
     const transaction = new this()
 
@@ -21,14 +33,19 @@ export class GTransaction {
       return
     }
 
-    transaction.addOutput([
+    return GTransaction.transactionWithOutput(senderWallet, [
       { amount: senderWallet.balance - amount, address: senderWallet.publicKey },
       { amount, address: recipient },
     ])
+  }
 
-    GTransaction.signTransaction(transaction, senderWallet)
-
-    return transaction
+  static rewardTransaction(minerWallet: GWallet, blockchainWallet: GWallet) {
+    return GTransaction.transactionWithOutput(blockchainWallet, [
+      {
+        amount: MINING_REWARD,
+        address: minerWallet.publicKey,
+      },
+    ])
   }
 
   static signTransaction(transaction: GTransaction, senderWallet: GWallet) {

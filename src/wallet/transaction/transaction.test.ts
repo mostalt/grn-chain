@@ -1,5 +1,8 @@
-import { GTransaction } from './transaction'
+import { getSetting } from '../../utils/settings'
 import { GWallet } from '../wallet/wallet'
+import { GTransaction } from './transaction'
+
+const MINING_REWARD = getSetting('miningReward')
 
 describe('Transaction', () => {
   let wallet: GWallet
@@ -73,6 +76,18 @@ describe('Transaction', () => {
       expect(transaction?.outputs.find((output) => output.address === nextRecipient)?.amount).toBe(
         nextAmout,
       )
+    })
+  })
+
+  describe('creating a reward transaction', () => {
+    beforeEach(() => {
+      transaction = GTransaction.rewardTransaction(wallet, GWallet.blockchainWallet())
+    })
+
+    it(`reward the miners's wallet`, () => {
+      expect(
+        transaction?.outputs.find((output) => output.address === wallet.publicKey)?.amount,
+      ).toEqual(MINING_REWARD)
     })
   })
 })
